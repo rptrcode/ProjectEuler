@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <ctime>
+
 using namespace std;
 #define SIZE 10000
 typedef unsigned long long ulong;
@@ -35,11 +37,8 @@ vec.push_back(n);
 
 
 uint no_digits(ulong num){
-uint count=1;
-  while(num/10){
-    num=num/10;
-    count++;
-  }
+uint count=0;
+  while(num){  count++;  num/=10;  }
   return count;
 }
 
@@ -244,8 +243,33 @@ bool toulong(ulong &val){
  	 val=vec[0];
  	 
  	 return true;
- }
- 
+}
+
+RLong mypower(uint base,uint exp){
+	RLong n1(base),n2(1);
+	for (uint p=1;p<exp;++p){
+   		n2=n1.multiply(base);
+   		n1=n2;
+	}
+//	cout<<base<<"^"<<exp<<"= ";
+//n2.print();
+//cout<<endl;
+return n2;
+}
+
+ulong digitcount(){
+ulong cnt=DIGIT_LIMIT*(vec.size()-1)+no_digits(vec[vec.size()-1]);
+  return cnt;
+}
+
+ulong digitcountvec(ulong i){
+if(i>=vec.size()) return 0;
+  if( i== (vec.size()-1) )
+   return no_digits(vec[i]);
+  else
+    return DIGIT_LIMIT;
+}
+
 void print(){
 for(int i=vec.size()-1;i>=0;i--){
 cout<<vec[i]<<".";
@@ -259,11 +283,7 @@ vector<ulong> vec;
 
 /*
 
-uint count2(RLong num){
-uint count=DIGIT_LIMIT*(num.vec.size()-1)+
-count_digits(num.vec[num.vec.size()-1]);
-  return count;
-}
+
 
 bool ispalindrome(RLong n1){
 RLong n2=n1.reverse();
@@ -292,17 +312,6 @@ ulong term2,prod= multiplier*multiplicand;
  return prod;
 }
 
-RLong mypower(uint base,uint exp){
-RLong n1(base),n2(1);
-for (uint p=1;p<exp;++p){
-   n2=n1.multiply(base);
-   n1=n2;
-}
-cout<<base<<"^"<<exp<<"= ";
-//n2.print();
-cout<<endl;
-return n2;
-}
 */
 
 #endif
