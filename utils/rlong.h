@@ -270,6 +270,37 @@ if(i>=vec.size()) return 0;
     return DIGIT_LIMIT;
 }
 
+ulong countoccurence(ulong val,RLong &rlong){
+	ulong cnt=0;
+for (ulong i =0; i< rlong.vec.size(); ++i) {
+	ulong num=rlong.vec[i], rem, digcnt=rlong.digitcountvec(i);
+     while(digcnt){  
+        rem=num%10;
+        if(rem==val) ++cnt;
+        num/=10;
+        --digcnt;
+      }
+ }
+//cout<<val<<" occ "<<cnt<<endl;
+ return cnt;
+}
+
+bool ispermutation( RLong &val1, RLong &val2){
+if(val1.vec.size() != val2.vec.size())  return false;
+ulong val1cnt=val1.digitcount(), val2cnt=val2.digitcount();
+if(val1cnt != val2cnt)  return false;     
+
+for(ulong i=0;i<10;++i){
+	ulong n1occ = countoccurence(i,val1);
+	ulong n2occ = countoccurence(i,val2); 
+	if(n1occ!=n2occ){
+		return false;
+	}
+}
+return true;
+}
+
+
 void print(){
 for(int i=vec.size()-1;i>=0;i--){
 cout<<vec[i]<<".";
